@@ -11,7 +11,9 @@ public class Server {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		//IHandler serverRequestHandler = new ServerRequestHandlerTCP(8080);
-		IHandler serverRequestHandler = new ServerRequestHandlerUDP(8080);
+		//IHandler serverRequestHandler = new ServerRequestHandlerUDP(8080);
+		IHandler serverRequestHandler = new ServerRequestHandlerHTTP(8080);
+		
 		Marshaller marshaller = new Marshaller();
 		
 		System.out.println("SERVER - Receiving");

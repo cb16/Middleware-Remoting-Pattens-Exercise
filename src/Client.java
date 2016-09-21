@@ -12,7 +12,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class Client {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		//IHandler clientRequestHandler = new ClientRequestHandlerTCP(Config.port);
-		IHandler clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
+		//IHandler clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
+		IHandler clientRequestHandler = new ClientRequestHandlerHTTP(Config.port);
 		
 		Marshaller marshaller = new Marshaller();
 		
