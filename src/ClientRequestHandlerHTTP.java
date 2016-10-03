@@ -69,4 +69,8 @@ public class ClientRequestHandlerHTTP implements IHandler {
 		return msg;
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f148dfbd3377bea96bcb4f28cac6e68b18c8653f

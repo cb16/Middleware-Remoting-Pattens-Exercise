@@ -1,11 +1,4 @@
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-import java.rmi.*;
-import java.rmi.registry.LocateRegistry;
 import java.util.Scanner;
 
 public class Server {
@@ -17,6 +10,8 @@ public class Server {
 		
 		System.out.println("Choose request handler type (TCP, UDP, HTTP)\n(default TCP)");
 		handlerType = in.nextLine();
+		
+		Marshaller marshaller = new Marshaller();
 		
 		switch (handlerType) {
 			case "UDP":
@@ -31,8 +26,6 @@ public class Server {
 				serverRequestHandler = new ServerRequestHandlerTCP(Config.port);
 				Config.setHandlerType(handlerType);
 		}
-		
-		Marshaller marshaller = new Marshaller();
 		
 		while(true) {
 			System.out.println("SERVER - Receiving");

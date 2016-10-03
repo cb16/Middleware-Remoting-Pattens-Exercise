@@ -71,4 +71,8 @@ public class ServerRequestHandlerHTTP implements IHandler {
 		outToClient.close();
 		inFromClient.close();
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f148dfbd3377bea96bcb4f28cac6e68b18c8653f

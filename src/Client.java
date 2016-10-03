@@ -1,12 +1,5 @@
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
-import java.rmi.*;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 
 
@@ -19,15 +12,15 @@ public class Client {
 		String handlerType = Config.handlerType;
 		
 		switch (handlerType) {
-		case "UDP":
-			clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
-			break;
-		case "HTTP":
-			clientRequestHandler = new ClientRequestHandlerHTTP(Config.port);
-			break;
-		default:
-			clientRequestHandler = new ClientRequestHandlerTCP(Config.port);
-	}
+			case "UDP":
+				clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
+				break;
+			case "HTTP":
+				clientRequestHandler = new ClientRequestHandlerHTTP(Config.port);
+				break;
+			default:
+				clientRequestHandler = new ClientRequestHandlerTCP(Config.port);
+		}
 		
 		Marshaller marshaller = new Marshaller();
 		
