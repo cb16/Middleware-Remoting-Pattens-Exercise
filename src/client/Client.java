@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+import message.Message;
+
 import utils.Config;
 import utils.IHandler;
 import utils.Marshaller;
@@ -16,7 +18,10 @@ public class Client {
 		Scanner in = new Scanner(System.in);
 		
 		String handlerType = Config.handlerType;
+		Message outMessage;
+		Message inMessage;
 		
+		//considering TCP
 		switch (handlerType) {
 			case "UDP":
 				clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
@@ -35,9 +40,10 @@ public class Client {
 		while(true) {
 			System.out.println("Digite a mensagem a ser enviada:");
 			a = in.nextLine();
+			outMessage = new Message(a);
 			
 			System.out.println("CLIENT - Marshalling");
-			byte[] msg = marshaller.marshall(a);
+			byte[] msg = marshaller.marshall(outMessage);
 			
 			System.out.println("CLIENT - Sending");
 			clientRequestHandler.send(msg);
@@ -46,9 +52,9 @@ public class Client {
 			msg = clientRequestHandler.receive();
 			
 			System.out.println("CLIENT - Unmarshalling");
-			a = marshaller.unmarshall(msg);
+			inMessage = marshaller.unmarshall(msg);
 			
-			System.out.println("CLIENT - Result: " + a);
+			System.out.println("CLIENT - Result: " + inMessage.getMessage());
 		}
 		
 	}

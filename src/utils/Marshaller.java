@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import message.Message;
+
 
 public class Marshaller {
-	public byte[] marshall(String a) throws IOException {
+	public byte[] marshall(Message a) throws IOException {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
 		
@@ -15,10 +17,10 @@ public class Marshaller {
 		return byteStream.toByteArray();
 	}
 	
-	public String unmarshall(byte[] bytes) throws IOException, ClassNotFoundException {
+	public Message unmarshall(byte[] bytes) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream byteStream = new ByteArrayInputStream(bytes);
 		ObjectInputStream objectStream = new ObjectInputStream(byteStream);
 		
-		return (String) objectStream.readObject();
+		return (Message) objectStream.readObject();
 	}
 }
