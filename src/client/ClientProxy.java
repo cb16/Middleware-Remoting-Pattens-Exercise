@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 
-public class ClientProxy implements Serializable{
+public class ClientProxy implements Serializable, IClientProxy {
 	private static final long serialVersionUID = 1L;
 	protected String host;
 	protected int port;
@@ -15,7 +15,8 @@ public class ClientProxy implements Serializable{
 		this.port = port;
 		this.objId = objId;
 	}
-	public ClientProxy(final int p){		
+	public ClientProxy(final int p){	
+		this.port = p;
 	}
 	
 	public String toUpper(String a) throws ClassNotFoundException, IOException {

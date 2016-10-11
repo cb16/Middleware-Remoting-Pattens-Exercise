@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.util.Scanner;
 
+import naming.NamingService;
+
 import message.Message;
 
 import utils.Config;
@@ -13,48 +15,20 @@ import utils.Marshaller;
 
 public class Client {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		IHandler clientRequestHandler;
-		
 		Scanner in = new Scanner(System.in);
+		String message;
 		
-		String handlerType = Config.handlerType;
-		Message outMessage;
-		Message inMessage;
+		NamingService namingService = new NamingService("localhost", Config.port);
 		
-		//considering TCP
-		switch (handlerType) {
-			case "UDP":
-				clientRequestHandler = new ClientRequestHandlerUDP(Config.port);
-				break;
-			case "HTTP":
-				clientRequestHandler = new ClientRequestHandlerHTTP(Config.port);
-				break;
-			default:
-				clientRequestHandler = new ClientRequestHandlerTCP(Config.port);
-		}
-		
-		Marshaller marshaller = new Marshaller();
-		
-		String a;
+		ClientProxy clientProxy = (ClientProxy) namingService.lookup("upper");
+		//ClientProxy clientProxy = new ClientProxy("localhost", Config.port, 1);
 		
 		while(true) {
 			System.out.println("Digite a mensagem a ser enviada:");
-			a = in.nextLine();
-			outMessage = new Message(a);
+			message = in.nextLine();
 			
-			System.out.println("CLIENT - Marshalling");
-			byte[] msg = marshaller.marshall(outMessage);
-			
-			System.out.println("CLIENT - Sending");
-			clientRequestHandler.send(msg);
-			
-			System.out.println("CLIENT - Receiving");
-			msg = clientRequestHandler.receive();
-			
-			System.out.println("CLIENT - Unmarshalling");
-			inMessage = marshaller.unmarshall(msg);
-			
-			System.out.println("CLIENT - Result: " + inMessage.getMessage());
+			String response = clientProxy.toUpper(message);
+			System.out.println("RESPONSE: " + response);
 		}
 		
 	}

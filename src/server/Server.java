@@ -3,6 +3,8 @@ package server;
 import java.io.IOException;
 import java.util.Scanner;
 
+import naming.NamingService;
+
 import client.ClientProxy;
 
 import utils.Config;
@@ -16,7 +18,10 @@ public class Server {
 		//remove object
 		ClientProxy client = new ClientProxy(Config.port);
 		
-		//naming service?
+		//naming service
+		NamingService namingService = new NamingService("localhost", Config.port);
+		
+		namingService.bind("upper", client);
 		
 		invoker.invoke(client);
 		
